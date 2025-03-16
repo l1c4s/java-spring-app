@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/mainpage.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Timmana&display=swap" rel="stylesheet">
+    <title>HotelSync</title>
+</head>
+<body>
+    <aside class="left-menu">
+        
+        
+            <div class="logo-container">
+                <img src="./ASSETS/logo.png">
+                <p>HotelSync</p>
+            </div>
+            <ul class="left-menu-options">
+                <li>
+                    <div class="option-box">
+                        <img src="./ASSETS/dashboard-svgrepo-com.svg">
+                        <p>Dashboard</p>
+                        <!--<p th:text="${teste}"></p>-->
+                    </div>
+                </li>
+                <li>
+                    <div class="option-box">
+                        <img src="./ASSETS/register-svgrepo-com.svg">
+                        <p>Cadastro</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="option-box">
+                        <img src="./ASSETS/hotel-svgrepo-com.svg">
+                        <p>Reserva</p>
+                    </div>
+                </li>
+                <li>   
+                    <div class="option-box">
+                        <img src="./ASSETS/payment-card-svgrepo-com.svg">
+                        <p>Pagamento</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="Logout-box">
+                <a href="login.html" class="logout-button">Logout</a>
+            </div>
+            
+        </aside>
+</body>
+</html>

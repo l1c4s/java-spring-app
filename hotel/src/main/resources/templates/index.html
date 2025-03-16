@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Timmana&display=swap" rel="stylesheet">
+    <title>HotelSync</title>
+</head>
+<body>
+    <div class="form-container">
+        
+        <div class="logo-container">
+            <img src="./ASSETS/logo.png">
+            <h1><I>HotelSync</I></h1>
+        </div>
+        <div class="form-box">
+            <p>Digite os dados de acesso no campo abaixo:</p>
+            <form target="./HotelSync/mainpage.html" action="#" method="POST">
+                    <label class="form-text" for="cpf">CPF:</label><br>
+                <div class="input-style">
+                    <input class="input-form" type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required>
+                    <img src="./ASSETS/user-svgrepo-com.svg" alt="icon-user" class="input-icon-user">
+                </div><br>
+                    <label class="form-text" for="senha">Senha:</label><br>
+                    <div class="input-style">
+                        <input  class="input-form" type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                        <img src="./ASSETS/eye-svgrepo-com.svg" alt="icon-eye" class="input-icon-eye">
+                    </div><br>
+                <div class="submit-button-box">
+                        <button class="submit-form-button" type="submit">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
