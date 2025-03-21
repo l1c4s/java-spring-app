@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.br.hotel.models.UserCliente;
 
 @Repository
-public interface UserClienteRepositorio extends JpaRepository<UserCliente, Long> {
+public interface UserClienteRepositorio extends JpaRepository<UserCliente, String> {
     
 }

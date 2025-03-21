@@ -1,14 +1,20 @@
 package com.br.hotel.models;
 
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 /*Classe java de quem vai se cadastrar no aplicativo */
 
 @Entity
+@Table(name = "Hospedes")
 public class Hospede {
 
     @Column(length = 11, nullable = false,unique = true)
@@ -33,5 +39,9 @@ public class Hospede {
 
     @Column(length = 11, nullable = false)
     private String telefone;
+
+    @ManyToOne
+    @JoinColumn(name = "Usuario_cpf")
+    private UserCliente usercliente;
     
 }
