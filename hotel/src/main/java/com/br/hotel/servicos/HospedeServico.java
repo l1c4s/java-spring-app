@@ -19,6 +19,6 @@ public class HospedeServico {
     }
 
     public List<Hospede> ListarHospedes(String UsuarioCpf){
-        return hospederepositorio.findByUsuarioCpf(UsuarioCpf);
+        return hospederepositorio.findByUsercliente_Cpf(UsuarioCpf);
     }
 }
