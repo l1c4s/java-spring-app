@@ -1,6 +1,6 @@
 package com.br.hotel.models;
 
-import org.hibernate.annotations.ManyToAny;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,7 +41,7 @@ public class Hospede {
     private String telefone;
 
     @ManyToOne
-    @JoinColumn(name = "Usuario_cpf")
+    @JoinColumn(name = "usercliente_cpf", referencedColumnName = "cpf")
     private UserCliente usercliente;
     
 }
