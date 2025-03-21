@@ -8,6 +8,6 @@ import com.br.hotel.models.Hospede;
 
 public interface HospedeRepositorio extends JpaRepository<Hospede,Long> {
 
-    List<Hospede> findByUsuarioCpf(String usuarioCpf);
+    List<Hospede> findByUsercliente_Cpf(String Cpf);
     
 }
