@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Hóspedes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+
+    <h2>Lista de Hóspedes Cadastrados</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="hospede : ${hospedes}">
+                <td th:text="${hospede.id}"></td>
+                <td th:text="${hospede.nome}"></td>
+                <td th:text="${hospede.cpf}"></td>
+                <td th:text="${hospede.email}"></td>
+                <td th:text="${hospede.telefone}"></td>
+                <td>
+                    <a th:href="@{/editar/{id}(id=${hospede.id})}">Editar</a> | 
+                    <a th:href="@{/deletar/{id}(id=${hospede.id})}" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/cadastro">Cadastrar Novo Hóspede</a>
+
+</body>
+</html>
