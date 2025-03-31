@@ -10,9 +10,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 /*Classe java de quem vai se cadastrar no aplicativo */
 
+@Getter
+@Setter
 @Entity
 @Table(name = "Hospedes")
 public class Hospede {
@@ -20,8 +24,6 @@ public class Hospede {
     @Column(length = 11, nullable = false,unique = true)
     private String cpf;
 
-    @Column(columnDefinition = "char(60)",nullable = false)
-    private String senha;
    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +31,6 @@ public class Hospede {
  
     @Column(length = 50, nullable = false)
     private String nome;
-
-    @Column(length = 150, nullable = true)
-    private String email;
 
 
     @Column(columnDefinition = "tinyint(1) default 1",nullable = false)
