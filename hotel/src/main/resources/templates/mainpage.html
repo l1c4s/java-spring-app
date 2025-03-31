@@ -11,43 +11,44 @@
 </head>
 <body>
     <aside class="left-menu">
-        
-        
-            <div class="logo-container">
-                <img src="./ASSETS/logo.png">
-                <p>HotelSync</p>
-            </div>
-            <ul class="left-menu-options">
-                <li>
+        <div class="logo-container">
+            <img th:src="@{/ASSETS/logo.png}" alt="HotelSync Logo">
+            <p>HotelSync</p>
+        </div>
+        <ul class="left-menu-options">
+            <li>
+                <a th:href="@{/mainpage}">
                     <div class="option-box">
-                        <img src="./ASSETS/dashboard-svgrepo-com.svg">
+                        <img th:src="@{/ASSETS/dashboard-svgrepo-com.svg}" alt="Dashboard Icon">
                         <p>Dashboard</p>
                         <!--<p th:text="${teste}"></p>-->
                     </div>
-                </li>
-                <li>
+                </a>
+            </li>
+            <li> 
+                <a th:href="@{/cadastro}">
                     <div class="option-box">
-                        <img src="./ASSETS/register-svgrepo-com.svg">
+                        <img th:src="@{/ASSETS/register-svgrepo-com.svg}" alt="Cadastro Icon">
                         <p>Cadastro</p>
                     </div>
-                </li>
-                <li>
-                    <div class="option-box">
-                        <img src="./ASSETS/hotel-svgrepo-com.svg">
-                        <p>Reserva</p>
-                    </div>
-                </li>
-                <li>   
-                    <div class="option-box">
-                        <img src="./ASSETS/payment-card-svgrepo-com.svg">
-                        <p>Pagamento</p>
-                    </div>
-                </li>
-            </ul>
-            <div class="Logout-box">
-                <a href="login.html" class="logout-button">Logout</a>
-            </div>
-            
-        </aside>
+                </a>
+            </li>
+            <li>
+                <div class="option-box">
+                    <img th:src="@{/ASSETS/hotel-svgrepo-com.svg}" alt="Reserva Icon">
+                    <p>Reserva</p>
+                </div>
+            </li>
+            <li>   
+                <div class="option-box">
+                    <img th:src="@{/ASSETS/payment-card-svgrepo-com.svg}" alt="Pagamento Icon">
+                    <p>Pagamento</p>
+                </div>
+            </li>
+        </ul>
+        <div class="Logout-box">
+            <a th:href="@{/login}" class="logout-button">Logout</a>
+        </div>
+    </aside>
 </body>
 </html>
