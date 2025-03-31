@@ -13,7 +13,7 @@
     <div class="form-container">
         
         <div class="logo-container">
-            <img src="./ASSETS/logo.png" alt="Logo">
+            <img th:src="@{/ASSETS/logo.png}" alt="Logo">
             <h1><i>HotelSync</i></h1>
         </div>
         <div class="form-box">
@@ -22,13 +22,17 @@
                 <label class="form-text" for="cpf">CPF:</label><br>
                 <div class="input-style">
                     <input class="input-form" type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required>
-                    <img src="./ASSETS/user-svgrepo-com.svg" alt="icon-user" class="input-icon-user">
+                    <img th:src="@{/ASSETS/user-svgrepo-com.svg}" alt="icon-user" class="input-icon-user">
                 </div><br>
                 <label class="form-text" for="senha">Senha:</label><br>
                 <div class="input-style">
                     <input class="input-form" type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
-                    <img src="./ASSETS/eye-svgrepo-com.svg" alt="icon-eye" class="input-icon-eye">
+                    <img th:src="@{/ASSETS/eye-svgrepo-com.svg}" alt="icon-eye" class="input-icon-eye">
                 </div><br>
+                <!-- Mensagem de erro (opcional) -->
+                <div th:if="${param.error}" style="color: red;">
+                    <p>Erro: CPF ou senha inválidos. Tente novamente.</p>
+                </div>
                 <button type="submit">Entrar</button>
             </form>
         </div>
