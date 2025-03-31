@@ -14,7 +14,7 @@ public class HospedeServico {
     @Autowired
     private HospedeRepositorio hospederepositorio;
 
-    public Hospede savarHospede(Hospede hospede){
+    public Hospede salvarHospede(Hospede hospede){
         return hospederepositorio.save(hospede);
     }
 
