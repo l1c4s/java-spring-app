@@ -1,6 +1,7 @@
 package com.br.hotel.Repositorios;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,10 +13,10 @@ public interface HospedeRepositorio extends JpaRepository<Hospede,Long> {
 
 
     
-    List<Hospede> findByUsercliente_Cpf(String Cpf);
-
+    Optional<Hospede> findByCpf(String Cpf);
     
-
+    
+    List<Hospede> findAll();
 
     
 }
