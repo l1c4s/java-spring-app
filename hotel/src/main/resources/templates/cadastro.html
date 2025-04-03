@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{/cadastro.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Timmana&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;700&family=Inter:wght@100..900&family=Timmana&display=swap" rel="stylesheet">
 </head>
 <body>
     <aside class="left-menu">
@@ -52,22 +52,33 @@
 
     <section class="cadastro_form">
         <div class="cadastro_Form_box">
-            <h1>Cadastro de Usuário</h1>
-            <form id="Cadastro_usuario" method="post">
+            <h1>Cadastro de Hóspede</h1>
+            <form id="Cadastro_hospede" th:action="@{/cadastro}" method="post">
+                <!-- Token CSRF -->
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                
+                <!-- Campo oculto para CPF do usuário logado -->
+                <input type="hidden" name="cpfUserCliente" th:value="${userLogado?.cpf}">
+
                 <div class="form_input">
                     <label>Nome Completo</label><br>
                     <input type="text" placeholder="Digite seu nome:" name="nome" required><br>
                 </div>
                 <div class="form_input">
-                    <label>CPF:</label><br>
+                    <label>CPF do Hóspede:</label><br>
                     <input type="text" placeholder="000.000.000-00" name="cpf" required><br>
                 </div>
                 <div class="form_input">
                     <label>Telefone:</label><br>
-                    <input type="text" placeholder="(00)000000000" name="telefone" required>
+                    <input type="text" placeholder="(00)00000-0000" name="telefone" required>
                 </div>
+                
+                <div th:if="${error}" style="color: red;">
+                    <p th:text="${error}"></p>
+                </div>
+
                 <div class="form_button">
-                    <button type="submit">Enviar</button>
+                    <button type="submit">Cadastrar</button>
                 </div>
             </form>
         </div>
@@ -77,24 +88,14 @@
         <div class="search_box">
             <div class="search_bar">
                 <img class="search_icon" th:src="@{/ASSETS/search-svgrepo-com.svg}" alt="Search Icon">
-                <input type="text">
+                <input type="text" placeholder="Buscar Hóspede">
             </div>
             <div class="table_names">
+                <tr th:each="hospede : ${hospedes}">
+                    <td th:text="${hospede.id}"></td>
+                    <td th:text="${hospede.nome}"></td>
+                    <td th:text="${hospede.cpf}"></td>
+                </tr>
                 <table>
                     <tr>
                         <th>ID</th>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                    </tr>
-                    <!-- Iterar sobre os hóspedes e exibir suas informações -->
-                    <tr th:each="hospede : ${hospedes}">
-                        <td th:text="${hospede.id}"></td>
-                        <td th:text="${hospede.nome}"></td>
-                        <td th:text="${hospede.cpf}"></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </aside>
-</body>
-</html>

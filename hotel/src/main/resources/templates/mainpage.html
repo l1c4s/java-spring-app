@@ -21,7 +21,6 @@
                     <div class="option-box">
                         <img th:src="@{/ASSETS/dashboard-svgrepo-com.svg}" alt="Dashboard Icon">
                         <p>Dashboard</p>
-                        <!--<p th:text="${teste}"></p>-->
                     </div>
                 </a>
             </li>
@@ -47,7 +46,13 @@
             </li>
         </ul>
         <div class="Logout-box">
-            <a th:href="@{/login}" class="logout-button">Logout</a>
+            <p>
+                Bem-vindo, 
+                <span th:if="${userLogado != null}" th:text="${userLogado.cpf}"></span>
+                <span th:unless="${userLogado != null}">Visitante</span>!
+            </p>
+            
+            <a th:href="@{/logout}" class="logout-button">Logout</a>
         </div>
     </aside>
 </body>
