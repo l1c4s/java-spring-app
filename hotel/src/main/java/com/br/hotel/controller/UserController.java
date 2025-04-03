@@ -14,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.br.hotel.Repositorios.UserClienteRepositorio;
 import com.br.hotel.models.UserCliente;
+import com.br.hotel.servicos.UserServico;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,28 +33,34 @@ public class UserController {
     @Autowired
     private UserClienteRepositorio userrepositorio;
 
+    @Autowired
+    private UserServico userServico;
+
     @GetMapping("/")
-    public ModelAndView home(){
+    public ModelAndView home(UserCliente userCliente){
         ModelAndView mv = new ModelAndView("index");
+        mv.addObject("User", new UserCliente());
+        mv.addObject("Usuarios", userrepositorio.findAll());
         return mv;
     }
 
     @PostMapping("/mainpage")
-    public ModelAndView cadastrar(@Valid UserCliente usercliente, BindingResult result) {
-        
-        if(result.hasErrors())
-            return new ModelAndView("index").addObject("usercliente", new UserCliente());
-        try{
-            userrepositorio.save(usercliente);
-        }catch(Exception e){
-            result.rejectValue("cpf", "Error.user", "erro ao salvar o usuario: "+e.getMessage());
-            return new ModelAndView("index").addObject("usercliente", new UserCliente());
+    public ModelAndView cadastrar(@Valid UserCliente usercliente, BindingResult result, HttpSession session) {
+        if(result.hasErrors()){
+            ModelAndView mv = new ModelAndView("cadastro");
+            return mv;
         }
+        if (userrepositorio.findByCpf(usercliente.getCpf()).isPresent()) {
+           ModelAndView mv = new ModelAndView("error");
+            return mv;
+        }
+        userServico.persist(usercliente);
+        session.setAttribute("cpfUsuario", usercliente.getCpf());
         
-        return new ModelAndView("redirect:/mainpage");
+        ModelAndView mv = new ModelAndView("mainpage");
+        mv.addObject("userLogado", usercliente); // Passa o usuário para a tela principal
+        return mv;
     }
-    
-    
     
 }
 
