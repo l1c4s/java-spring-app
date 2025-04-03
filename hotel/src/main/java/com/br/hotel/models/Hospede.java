@@ -21,6 +21,7 @@ import lombok.Setter;
 @Table(name = "Hospedes")
 public class Hospede {
 
+    
     @Column(length = 11, nullable = false,unique = true)
     private String cpf;
 
@@ -40,7 +41,7 @@ public class Hospede {
     private String telefone;
 
     @ManyToOne
-    @JoinColumn(name = "usercliente_cpf", referencedColumnName = "cpf")
+    @JoinColumn(name = "usercliente_cpf",nullable = false)
     private UserCliente usercliente;
     
 }
