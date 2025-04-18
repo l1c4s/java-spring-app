@@ -158,3 +158,16 @@ table, td, th {
     border: 1px solid var(--background);
     border-collapse: collapse;
 }
+
+.remove-button {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.remove-button:hover {
+    background-color: #e64545;
+}

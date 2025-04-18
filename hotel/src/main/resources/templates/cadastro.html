@@ -91,11 +91,32 @@
                 <input type="text" placeholder="Buscar Hóspede">
             </div>
             <div class="table_names">
-                <tr th:each="hospede : ${hospedes}">
-                    <td th:text="${hospede.id}"></td>
-                    <td th:text="${hospede.nome}"></td>
-                    <td th:text="${hospede.cpf}"></td>
-                </tr>
                 <table>
-                    <tr>
-                        <th>ID</th>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="hospede : ${hospedes}">
+                            <td th:text="${hospede.id}"></td>
+                            <td th:text="${hospede.nome}"></td>
+                            <td th:text="${hospede.cpf}"></td>
+                            <td>
+                                <form th:action="@{/hospede/remover}" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" th:value="${hospede.id}" />
+                                    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                                    <button type="submit" class="remove-button">Remover</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </aside>
+</body>
+</html>

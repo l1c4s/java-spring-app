@@ -1,0 +1,39 @@
+:root {
+  --background: #4B4E68;
+  --primary: #B4B6C5;
+  --secondary: #FFF3F3;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary);
+}
+
+.tela-erro {
+  text-align: center;
+}
+
+.tela-erro h1 {
+  font-size: 8rem;
+  margin: 0;
+  font-weight: 800;
+  color: var(--secondary);
+}
+
+.tela-erro p {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+.tela-erro a {
+  color: var(--primary);
+  text-decoration: underline;
+  font-weight: 600;
+}
