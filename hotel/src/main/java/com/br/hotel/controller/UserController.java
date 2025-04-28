@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.BindResult;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 
 
@@ -37,7 +39,7 @@ public class UserController {
     @Autowired
     private UserServico userServico;
 
-    @GetMapping("/")
+    @GetMapping({"/", "/index"})
     public ModelAndView home(UserCliente userCliente){
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("User", new UserCliente());
@@ -50,53 +52,51 @@ public ModelAndView processarForm(@RequestParam String cpf,
                                   @RequestParam String senha, 
                                   @RequestParam String action, 
                                   HttpSession session) {
-    
-    // Lógica de Login
-    if ("login".equals(action)) {
-        // Verifica se o CPF existe
-        Optional<UserCliente> usuarioOptional = userrepositorio.findByCpf(cpf);
-        
-        if (usuarioOptional.isPresent()) {
-            UserCliente usuario = usuarioOptional.get();
-            
-            // Verifica a senha
-            if (new BCryptPasswordEncoder().matches(senha, usuario.getSenha())) {
-                session.setAttribute("cpfUsuario", cpf);
-                ModelAndView mv = new ModelAndView("mainpage");
-                mv.addObject("userLogado", usuario);
-                return mv;
+
+    try {
+        if ("login".equals(action)) {
+            var usuarioOptional = userrepositorio.findByCpf(cpf);
+
+            if (usuarioOptional.isPresent()) {
+                var usuario = usuarioOptional.get();
+
+                if (new BCryptPasswordEncoder().matches(senha, usuario.getSenha())) {
+                    session.setAttribute("cpfUsuario", cpf);
+                    ModelAndView mv = new ModelAndView("mainpage");
+                    mv.addObject("userLogado", usuario);
+                    return mv;
+                } else {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado ou senha inválida");
+                }
             } else {
-                ModelAndView mv = new ModelAndView("index");
-                mv.addObject("error", "Senha inválida.");
-                return mv;
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado ou senha inválida"); // CPF não encontrado
             }
-        } else {
-            ModelAndView mv = new ModelAndView("index");
-            mv.addObject("error", "CPF não encontrado.");
-            return mv;
-        }
-    }
-
-    // Lógica de Cadastro
-    if ("cadastrar".equals(action)) {
-        UserCliente userCliente = new UserCliente();
-        userCliente.setCpf(cpf);
-        userCliente.setSenha(new BCryptPasswordEncoder().encode(senha)); // Criptografa a senha
-
-        if (userrepositorio.findByCpf(cpf).isPresent()) {
-            ModelAndView mv = new ModelAndView("index");
-            mv.addObject("error", "Este CPF já está cadastrado.");
-            return mv;
         }
 
-        userServico.persist(userCliente);
-        session.setAttribute("cpfUsuario", cpf);
-        ModelAndView mv = new ModelAndView("mainpage");
-        mv.addObject("userLogado", userCliente);
-        return mv;
+        if ("cadastrar".equals(action)) {
+            if (userrepositorio.findByCpf(cpf).isPresent()) {
+                return new ModelAndView("redirect:/errors?status=409"); // CPF já cadastrado
+            }
+
+            var userCliente = new UserCliente();
+            userCliente.setCpf(cpf);
+            userCliente.setSenha(new BCryptPasswordEncoder().encode(senha));
+
+            if(userCliente.getCpf().length()<11){
+                throw new IllegalAccessException("CPF invalido");
+            }
+
+            userServico.persist(userCliente);
+            session.setAttribute("cpfUsuario", cpf);
+            ModelAndView mv = new ModelAndView("mainpage");
+            mv.addObject("userLogado", userCliente);
+            return mv;
+        }
+    } catch (Exception e) {
+        return new ModelAndView("redirect:/errors?status=500"); // Erro inesperado
     }
 
-    return new ModelAndView("index");
+    return new ModelAndView("redirect:/errors?status=400"); // Ação inválida
 }
 
     

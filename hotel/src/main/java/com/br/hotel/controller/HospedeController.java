@@ -69,13 +69,16 @@ public ModelAndView cadastrarHospede(@Valid Hospede hospede, BindingResult resul
         String cpfUsuario = (String) session.getAttribute("cpfUsuario");
 
         if (cpfUsuario == null) {
-            return new ModelAndView("cadastro").addObject("error", "Erro: Usuário não autenticado.");
+            return new ModelAndView("redirect:/errors?status=500");
+        }
+        if(hospede.getCpf().length()<11){
+            throw new IllegalAccessException("CPf invalido");
         }
 
         Optional<UserCliente> usuarioOpt = userclienterepositorio.findByCpf(cpfUsuario);
 
         if (!usuarioOpt.isPresent()) {
-            return new ModelAndView("cadastro").addObject("error", "Erro: Usuário não encontrado.");
+            return new ModelAndView("redirect:/errors?status=404");
         }
 
         UserCliente usuario = usuarioOpt.get();
@@ -96,7 +99,8 @@ public ModelAndView removerHospede(@RequestParam Long id, HttpSession session) {
     
     if (cpfUsuarioLogado == null) {
         // Se o usuário não estiver logado, exibe um erro
-        return new ModelAndView("error").addObject("error", "Usuário não autenticado.");
+
+        return new ModelAndView("redirect:/errors?status=500");
     }
     
     // Encontra o hóspede pelo ID
